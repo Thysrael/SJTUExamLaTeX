@@ -1,9 +1,11 @@
 \documentclass[a4paper,12pt]{article}
 
 % `fontset=none` means forbidden default the font setting
-\usepackage[UTF8, fontset=none]{ctex}
-\usepackage[margin=0.79in]{geometry}
-\usepackage{amsmath, amssymb}
+\usepackage[UTF8, fontset=none]{ctex} % cjk
+\usepackage[margin=0.79in]{geometry} % layout
+\usepackage{amsmath, amssymb} % math
+\usepackage{fancyhdr} % head and footer
+\usepackage{lastpage} % get total page number
 
 % font setting
 \setmainfont{Times New Roman}
@@ -11,6 +13,20 @@
 \setCJKmainfont{SimSun}
 \setCJKsansfont{SimHei}
 \setCJKmonofont{FangSong}
+
+% header and footer
+\pagestyle{fancy}
+\fancyhf{} % clear the default config
+% header
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hrule width\textwidth height\headrulewidth}
+% footer
+\fancyfoot[C]{
+  \footnotesize
+  \underline{ A } 卷 \space
+  第 \underline{ \thepage } 页 \space
+  共 \underline{ \pageref{LastPage} } 页
+}
 
 \begin{document}
 你好，世界。“花鸟鱼虫”好
@@ -21,4 +37,13 @@ this is good?, 'Duck' is not good
 
 \verb|printf("h")|
 
+\newpage
+
+再见，世界。
+
+This is good!
+
+\verb|printf("b")|
+
+\label{LastPage}
 \end{document}
