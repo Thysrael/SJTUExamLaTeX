@@ -9,6 +9,8 @@
 \usepackage{xifthen} % enhanced if-else condition
 \usepackage{multirow} % merge table item
 \usepackage{tabularx} % enhanced table
+\usepackage{afterpage} % add table at the second page
+\usepackage{tabularray} % enhanced table 2
 
 % font setting
 \setmainfont{Times New Roman}
@@ -16,7 +18,8 @@
 \setCJKmainfont{SimSun}
 \setCJKsansfont{SimHei}
 \setCJKmonofont{FangSong}
-
+\setCJKfamilyfont {zhkai} {KaiTi}
+\NewDocumentCommand \kaishu{}{\CJKfamily{zhkai}}
 % get current semester
 \newcommand{\currentsemester}{
   \ifnum\month<10 
@@ -50,6 +53,7 @@
 
 \begin{document}
 
+% title
 \begin{center}
   \zihao{3} \school 试卷（\underline{\papertype} 卷）\\
   \zihao{4} （\underline{\ \startyear\ } 至 \underline{\ \nextyear\ } 学年 第 \underline{\ \semester\ } 学期） \\
@@ -61,6 +65,32 @@
   \end{tabularx}
 \end{center}
 
+% commitment
+\afterpage{
+  \noindent
+  \begin{minipage}{0.22 \textwidth}
+    \zihao{4.5}
+    \kaishu \hspace{2em} \textbf{我承诺，我将严格遵守考试纪律。}
+    \vspace{1em}
+    
+    承诺人：\underline{\hspace{0.5 \textwidth}} \\
+    \vspace{1em}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.73\textwidth}
+    \begin{tblr}{
+      colspec = {|X[3,l]|X[c]|X[c]|X[c]|X[c]|X[c]|X[c]|X[c]|X[c]|X[c]|},
+      rows = {ht=10mm},
+      hlines,
+      vlines,
+      }
+      \textbf{题号} & & & & & & & & & \\
+      \textbf{得分} & & & & & & & & & \\
+      \textbf{批阅人} & & & & & & & & & \\
+    \end{tblr}
+  \end{minipage}
+}
+
 你好，世界。“花鸟鱼虫”好
 
 printf("h")
@@ -68,6 +98,14 @@ printf("h")
 this is good?, 'Duck' is not good
 
 \verb|printf("h")|
+
+\newpage
+
+再见，世界。
+
+This is good!
+
+\verb|printf("b")|
 
 \newpage
 
