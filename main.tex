@@ -6,6 +6,7 @@
 \usepackage{amsmath, amssymb} % math
 \usepackage{fancyhdr} % head and footer
 \usepackage{lastpage} % get total page number
+\usepackage{xifthen} % enhanced if-else condition
 
 % font setting
 \setmainfont{Times New Roman}
@@ -13,6 +14,22 @@
 \setCJKmainfont{SimSun}
 \setCJKsansfont{SimHei}
 \setCJKmonofont{FangSong}
+
+
+\newcommand{\currentsemester}{
+    \ifnum\month<10 
+        1
+    \else
+        2
+    \fi
+  }
+  
+\newcommand{\school}{上海交通大学}
+\newcommand{\papertype}{A}
+\newcommand{\startyear}{\the\year}
+\newcommand{\nextyear}{\the\numexpr\startyear+1\relax}
+\newcommand{\semester}{\currentsemester}
+\newcommand{\coursename}{操作系统}
 
 % header and footer
 \pagestyle{fancy}
@@ -23,12 +40,21 @@
 % footer
 \fancyfoot[C]{
   \footnotesize
-  \underline{ A } 卷 \space
+  \underline{ \papertype } 卷 \space
   第 \underline{ \thepage } 页 \space
   共 \underline{ \pageref{LastPage} } 页
 }
 
+
 \begin{document}
+
+\begin{center}
+  \zihao{2} \school 试卷（\underline{\papertype} 卷）\\
+  \zihao{3} （\startyear 至 \nextyear 学年 第 \semester\ 学期） \\
+\end{center}
+
+
+
 你好，世界。“花鸟鱼虫”好
 
 printf("h")
