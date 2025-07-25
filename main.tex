@@ -11,6 +11,12 @@
 \usepackage{tabularx} % enhanced table
 \usepackage{afterpage} % add table at the second page
 \usepackage{tabularray} % enhanced table 2
+% \usepackage{pgffor} % for-loop
+% \usepackage{totcount} % counter
+
+% % register counter
+% \regtotcounter{section}
+% \newcounter{sectioncount}
 
 % font setting
 \setmainfont{Times New Roman}
@@ -57,7 +63,7 @@
 \begin{center}
   \zihao{3} \school 试卷（\underline{\papertype} 卷）\\
   \zihao{4} （\underline{\ \startyear\ } 至 \underline{\ \nextyear\ } 学年 第 \underline{\ \semester\ } 学期） \\
-  \vspace{0.5cm} \\
+  \vspace{0.5cm}
   \zihao{4}
   \begin{tabularx}{0.9 \textwidth}{XXX}
     班级号：\underline{\hspace{0.15 \textwidth}} & 学号：\underline{\hspace{0.2 \textwidth}} & 姓名：\underline{\hspace{0.2 \textwidth}} \\
@@ -65,13 +71,15 @@
   \end{tabularx}
 \end{center}
 
+% \setcounter{sectioncount}{\number\totvalue{section}}
+
 % commitment
 \afterpage{
   \noindent
   \begin{minipage}{0.22 \textwidth}
-    \zihao{4.5}
+    \zihao{5}
     \kaishu \hspace{2em} \textbf{我承诺，我将严格遵守考试纪律。}
-    \vspace{1em}
+    \vspace{2.5em}
     
     承诺人：\underline{\hspace{0.5 \textwidth}} \\
     \vspace{1em}
@@ -91,6 +99,16 @@
   \end{minipage}
 }
 
+
+% \foreach \i in {1,2,3,4,5,6,7,8,9} {
+% \&
+% \ifnum\i>\value{sectioncount} % 比较数值而非计数器
+%   0 
+% \else
+%   \i
+% \fi
+% }
+
 你好，世界。“花鸟鱼虫”好
 
 printf("h")
@@ -101,6 +119,12 @@ this is good?, 'Duck' is not good
 
 \newpage
 
+\section{第三节}
+内容...
+
+\section{第四节}
+内容...
+
 再见，世界。
 
 This is good!
@@ -109,9 +133,11 @@ This is good!
 
 \newpage
 
-再见，世界。
+\section{第五节}
+内容...
 
-This is good!
+\section{第六节}
+内容...
 
 \verb|printf("b")|
 
