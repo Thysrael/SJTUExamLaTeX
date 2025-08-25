@@ -31,7 +31,6 @@
 \setmonofont{Consolas}
 \setCJKmainfont{SimSun}[AutoFakeBold]
 \setCJKsansfont{SimHei}[AutoFakeBold]
-\setCJKmonofont{FangSong}[AutoFakeBold]
 \setCJKfamilyfont {zhkai} {KaiTi}
 \NewDocumentCommand \kaishu{}{\CJKfamily{zhkai}}
 % get current semester
@@ -43,6 +42,7 @@
   \fi
 }
 
+% exam info
 \newcommand{\school}{上海交通大学}
 \newcommand{\papertype}{A}
 \newcommand{\startyear}{\the\year}
@@ -52,8 +52,8 @@
 
 % show answer or not
 \newif\ifshowans
-\showanstrue
-% \showansfalse
+% \showanstrue
+\showansfalse
 
 % header and footer
 \pagestyle{fancy}
@@ -193,18 +193,7 @@
   \vspace{2em}
 }
 
-
-% \foreach \i in {1,2,3,4,5,6,7,8,9} {
-% \&
-% \ifnum\i>\value{sectioncount} % 比较数值而非计数器
-%   0
-% \else
-%   \i
-% \fi
-% }
-% TODO: 答案编辑
-
-\section{内存抽象\score{36}}
+\section{内存抽象 \score{36}}
 
 \subsection{}
 
@@ -238,7 +227,7 @@ TLB 的作用是什么？如果使用单级页表还需要 TLB 吗？\score{4}
 假设伙伴系统初始只有一块 64KB 大小的内存块，保存在空闲链表 4 当中。依次分配 30KB、9KB、4KB 三次内存后，请问空闲链表 0~3 各剩几个空闲块？\score{4}
 
 \begin{answer}
-  \lipsum[3]
+  最终空闲链表状态：链表 0:1 \score{1}, 链表 1:1 \score{1}, 链表 2:0 \score{1}, 链表 3:0 \score{1} 。
 \end{answer}
 
 \subsubsection{}

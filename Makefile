@@ -11,7 +11,7 @@ clean:
 	rm -rf *.lof *.log *.lot *.out *.toc *.bbl *.blg *.thm  auto/ *.synctex.gz *.listing *.synctex\(busy\)
 
 depclean: clean
-	rm -rf *.pdf
+	rm -rf main.pdf
 
 check:
 	@python3 check.py
