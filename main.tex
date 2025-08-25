@@ -59,10 +59,6 @@
   共 \underline{\ \pageref{LastPage}\ } 页
 }
 
-% indepent title numbering
-\counterwithout{subsection}{section}
-\counterwithout{subsubsection}{subsection}
-
 % custom section format
 \renewcommand{\thesection}{\chinese{section}}
 \titleformat{\section}
@@ -90,6 +86,7 @@
 
 % subsubsection indent
 \titlespacing{\subsubsection}{2em}{1em}{0pt}
+
 
 % paragraph space
 \setlength{\parskip}{0em}
@@ -148,6 +145,7 @@
       \textbf{批阅人} & & & & & & & & & \\
     \end{tblr}
   \end{minipage}
+  \vspace{2em}
 }
 
 
