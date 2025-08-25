@@ -1,5 +1,5 @@
 \documentclass[a4paper,12pt]{article}
-
+\usepackage[compact]{titlesec}
 % `fontset=none` means forbidden default the font setting
 \usepackage[UTF8, fontset=none]{ctex} % cjk
 \usepackage[margin=0.79in]{geometry} % layout
@@ -15,6 +15,7 @@
 \usepackage{indentfirst} % custom section ident
 \usepackage{enumitem} % custom item
 \usepackage{listings} % source code
+
 % \usepackage{pgffor} % for-loop
 % \usepackage{totcount} % counter
 
@@ -72,7 +73,7 @@
 \renewcommand{\thesubsection}{\arabic{subsection}}
 \titleformat{\subsection}[runin]
   {\normalfont\large\bfseries}
-  {\thesubsection.}
+  {\thesubsection.\ }
   {0pt}
   {}
 
@@ -81,30 +82,31 @@
 \renewcommand{\thesubsubsection}{\arabic{subsubsection}}
 \titleformat{\subsubsection}[runin]
   {\normalfont\bfseries}
-  {\thesubsubsection)\ \ }
+  {\thesubsubsection)\ }
   {0pt}
   {}
 
 % subsubsection indent
-\titlespacing{\subsubsection}{1em}{1em}{0pt}
-
+\titlespacing{\section}{0pt}{1em}{0pt}
+\titlespacing{\subsection}{0pt}{1pt}{1em}
+\titlespacing{\subsubsection}{1em}{1pt}{1em}
 
 % paragraph space
-\setlength{\parskip}{0em}
+\setlength{\parskip}{0.5em}
 
 % custom list
 \setlist[itemize]{
-    itemsep=0.25em,
+    itemsep=0.20em,
     parsep=0em,
-    topsep=0.5em,
-    partopsep=0.5em
+    topsep=0.20em,
+    partopsep=0.20em
 }
 
 \setlist[enumerate]{
-    itemsep=0em,
-    parsep=0.5em,
-    topsep=0.5em,
-    partopsep=0em
+    itemsep=0.20em,
+    parsep=0em,
+    topsep=0.20em,
+    partopsep=0.20em
 }
 
 % source code
@@ -121,6 +123,9 @@
   framexrightmargin=0.5em,
   lineskip=0.1em
 }
+
+% score command
+\newcommand{\score}[1]{(#1')}
 
 \begin{document}
 
@@ -176,8 +181,9 @@
 % TODO: 分数计算
 % TODO: 代码块和图片样式
 % TODO: 答案编辑
+% TODO: 黑体加粗标题
 
-\section{内存抽象 (36')}
+\section{内存抽象 \score{36}}
 
 \subsection{}
 
@@ -185,12 +191,12 @@
 
 \subsubsection{}
 
-TLB 的作用是什么？如果使用单级页表还需要 TLB 吗？(4')
+TLB 的作用是什么？如果使用单级页表还需要 TLB 吗？\score{4}
 
 \subsubsection{}
 
 当操作系统选择 4KB 作为最小页大小时， L2 页表项和 L1 页表项对应大页的页面大小分别为 2MB 和 1GB。
-那么当操作系统选择 16KB 或 64KB 作为最小页大小时，对应大页（只考虑 L2 页表项）的页面大小是多少？请写出计算过程。(4')
+那么当操作系统选择 16KB 或 64KB 作为最小页大小时，对应大页（只考虑 L2 页表项）的页面大小是多少？请写出计算过程。\score{4}
 
 
 \subsection{}
@@ -199,21 +205,21 @@ TLB 的作用是什么？如果使用单级页表还需要 TLB 吗？(4')
 
 \subsubsection{}
 
-假设伙伴系统初始只有一块 64KB 大小的内存块，保存在空闲链表 4 当中。依次分配 30KB、9KB、4KB 三次内存后，请问空闲链表 0~3 各剩几个空闲块？(4')
+假设伙伴系统初始只有一块 64KB 大小的内存块，保存在空闲链表 4 当中。依次分配 30KB、9KB、4KB 三次内存后，请问空闲链表 0~3 各剩几个空闲块？\score{4}
 
 \subsubsection{}
 
-伙伴系统会存在内部碎片的问题，请说明内部碎片是什么，并计算第一问中存在多大的内部碎片。(4')
+伙伴系统会存在内部碎片的问题，请说明内部碎片是什么，并计算第一问中存在多大的内部碎片。\score{4}
 
-\section{系统安全 (16')}
-
-\subsection{}
-
-如果允许且只允许你修改一台正在运行中的计算机内存中的任意一个 bit ，你该如何获取到最高权限？简述不少于 2 种方案。(4')
+\section{系统安全 \score{16}}
 
 \subsection{}
 
-从安全的角度分析，为什么对文件操作不使用 inode 号作为参数而要用 fd 作为参数？不少于 2 种原因。(4')
+如果允许且只允许你修改一台正在运行中的计算机内存中的任意一个 bit ，你该如何获取到最高权限？简述不少于 2 种方案。\score{4}
+
+\subsection{}
+
+从安全的角度分析，为什么对文件操作不使用 inode 号作为参数而要用 fd 作为参数？不少于 2 种原因。\score{4}
 
 \subsection{}
 
@@ -224,14 +230,14 @@ Recall 是结合了 Copilot 学习、理解、推理能力应运而生的「回�
 \subsubsection{}
 
 过去潜在的黑客大费周章却只能针对单一应用攻击，但现在他们或许有机会一次性从你的电脑中获得最近一小时甚至一个月的操作记录，如何避免这样的事情发生？
-不少于 3 点（可从系统安全保护层次、文件安全性隔离性保护、应用隔离等方面回答）。(4')
+不少于 3 点（可从系统安全保护层次、文件安全性隔离性保护、应用隔离等方面回答）。\score{4}
 
 \subsubsection{}
 
 Recall 在拍摄快照时，并不会隐藏密码或重要帐号等信息，它甚至已经记录下你的所有隐私操作。
-请你选择课程中介绍的访问控制策略，设计一个允许用户控制的 Recall 启用方案，允许用户决定操作是否允许被 Recall 记录，并确保记录下的数据被安全使用。(4')
+请你选择课程中介绍的访问控制策略，设计一个允许用户控制的 Recall 启用方案，允许用户决定操作是否允许被 Recall 记录，并确保记录下的数据被安全使用。\score{4}
 
-\section{同步原语 (20')}
+\section{同步原语 \score{20}}
 
 \subsection{}
 
@@ -288,16 +294,16 @@ void barrier_wait(barrier_t *b) {
 
 \subsubsection{}
 
-这个 barrier 存在一处 bug 。请指出一个执行序列，会出现不止 \verb|max_waiting| 个线程从 barrier 恢复执行。(3')
+这个 barrier 存在一处 bug 。请指出一个执行序列，会出现不止 \verb|max_waiting| 个线程从 barrier 恢复执行。\score{3}
 
 \subsubsection{}
 
-请说明如何修复这个问题。(2')
+请说明如何修复这个问题。\score{2}
 
 \subsubsection{}
 
 \verb|pthread_cond_broadcast| 会唤醒所有正在等待的线程，而从 \verb|pthread_cond_wait| 醒来的线程都需要持有 \verb|b->m| , 这使得这个 barrier 实现在 NUMA 环境下性能很差。
-请提出一种方案缓解这个问题。(3')
+请提出一种方案缓解这个问题。\score{3}
 
 
 \label{LastPage}
