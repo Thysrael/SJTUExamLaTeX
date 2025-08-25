@@ -11,6 +11,9 @@
 \usepackage{tabularx} % enhanced table
 \usepackage{afterpage} % add table at the second page
 \usepackage{tabularray} % enhanced table 2
+\usepackage{titlesec} % custom title format
+\usepackage{indentfirst} % custom section ident
+\usepackage{enumitem} % custom item
 % \usepackage{pgffor} % for-loop
 % \usepackage{totcount} % counter
 
@@ -28,7 +31,7 @@
 \NewDocumentCommand \kaishu{}{\CJKfamily{zhkai}}
 % get current semester
 \newcommand{\currentsemester}{
-  \ifnum\month<10 
+  \ifnum\month<10
     1
   \else
     2
@@ -56,6 +59,55 @@
   共 \underline{\ \pageref{LastPage}\ } 页
 }
 
+% indepent title numbering
+\counterwithout{subsection}{section}
+\counterwithout{subsubsection}{subsection}
+
+% custom section format
+\renewcommand{\thesection}{\chinese{section}}
+\titleformat{\section}
+  {\normalfont\Large\bfseries}
+  {\thesection、}
+  {0pt}
+  {}
+
+% custom subsection format
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\titleformat{\subsection}[runin]
+  {\normalfont\large\bfseries}
+  {\thesubsection.}
+  {0pt}
+  {}
+
+% custom subsubsection format
+% \setcounter{sectioncount}{\number\totvalue{section}}
+\renewcommand{\thesubsubsection}{\arabic{subsubsection}}
+\titleformat{\subsubsection}[runin]
+  {\normalfont\bfseries}
+  {\thesubsubsection)\ \ }
+  {0pt}
+  {}
+
+% subsubsection indent
+\titlespacing{\subsubsection}{2em}{1em}{0pt}
+
+% paragraph space
+\setlength{\parskip}{0em}
+
+% custom list
+\setlist[itemize]{
+    itemsep=0em,
+    parsep=0.5em,
+    topsep=0.5em,
+    partopsep=0em
+}
+
+\setlist[enumerate]{
+    itemsep=0em,
+    parsep=0.5em,
+    topsep=0.5em,
+    partopsep=0em
+}
 
 \begin{document}
 
@@ -71,7 +123,6 @@
   \end{tabularx}
 \end{center}
 
-% \setcounter{sectioncount}{\number\totvalue{section}}
 
 % commitment
 \afterpage{
@@ -80,7 +131,7 @@
     \zihao{5}
     \kaishu \hspace{2em} \textbf{我承诺，我将严格遵守考试纪律。}
     \vspace{2.5em}
-    
+
     承诺人：\underline{\hspace{0.5 \textwidth}} \\
     \vspace{1em}
   \end{minipage}
@@ -103,21 +154,38 @@
 % \foreach \i in {1,2,3,4,5,6,7,8,9} {
 % \&
 % \ifnum\i>\value{sectioncount} % 比较数值而非计数器
-%   0 
+%   0
 % \else
 %   \i
 % \fi
 % }
+% TODO: 标题样式
+% TODO: 分数计算
+% TODO: 代码块和图片样式
+% TODO: 答案编辑
 
-你好，世界。“花鸟鱼虫”好
+\section{系统安全(20')}
 
-printf("h")
+\subsection{}
 
-this is good?, 'Duck' is not good
+Private Cloud Compute (PCC) 是 Apple 提出的云 AI 计算安全架构，基于用户的输入和数据进行推理。为了保护用户的隐私，PCC 采取了一系列的安全措施：
 
-\verb|printf("h")|
+\begin{itemize}
+    \item 基于苹果自研芯片（如 M2 Ultra/M4），具有不可被篡改的密钥存储区域；
+    \item PCC Server 运行专有的操作系统；关键安全组件大量使用内存安全编程语言（如 Swift, Rust）编写，减少内存破坏类漏洞的风险。
+    \item 禁用远程 Shell 和调试工具，仅允许结构化日志输出；
+    \item 采用随机映射的方式，让数据中心的 PCC Server 与用户之间的映射呈现随机的模式
+    \item 系统启动时，从硬件信任根开始，每一步加载的固件都必须经过密码学验证签名，确保只加载和执行苹果授权的、未被篡改的代码。
+\end{itemize}
 
-\newpage
+\subsubsection{}
+
+相比所有 AI 推理均在本地执行，PCC 架构所面临的安全威胁有哪些？哪些威胁可以被上述技术解决，哪些不可以？(4')
+
+
+\subsubsection{}
+
+用户数据最终会在 PCC 服务器解密后用于推理。如何才能实现用户数据的全生命周期保护（包括内存中）？ (4')
 
 \section{第三节}
 内容...
