@@ -15,7 +15,7 @@
 \usepackage{indentfirst} % custom section ident
 \usepackage{enumitem} % custom item
 \usepackage{listings} % source code
-
+\usepackage{graphicx} % figure
 % \usepackage{pgffor} % for-loop
 % \usepackage{totcount} % counter
 
@@ -322,6 +322,12 @@ ChCore Lab 使用 \verb|qemu-system-aarch64| 在助教提供的 x86-64 的 Linux
 
 Barrier 用于协调多个线程，使它们在执行到某个特定点时等待，直到恰好 K 个线程都到达该点后再继续执行，其中 K 是 barrier 初始化时设定的值。
 下面展示了一个 barrier 的实现：
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=0.7\textwidth]{img/simt.png}
+  \caption{CUDA SIMT}
+\end{figure}
 
 \begin{table}[htb]
   \centering
