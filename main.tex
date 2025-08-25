@@ -16,6 +16,9 @@
 \usepackage{enumitem} % custom item
 \usepackage{listings} % source code
 \usepackage{graphicx} % figure
+\usepackage{xcolor} % color
+\usepackage{environ}
+\usepackage{lipsum}
 % \usepackage{pgffor} % for-loop
 % \usepackage{totcount} % counter
 
@@ -46,6 +49,11 @@
 \newcommand{\nextyear}{\the\numexpr\startyear+1\relax}
 \newcommand{\semester}{\currentsemester}
 \newcommand{\coursename}{操作系统}
+
+% show answer or not
+\newif\ifshowans
+\showanstrue
+% \showansfalse
 
 % header and footer
 \pagestyle{fancy}
@@ -88,8 +96,8 @@
 
 % subsubsection indent
 \titlespacing{\section}{0em}{1em}{0pt}
-\titlespacing{\subsection}{0pt}{0.25em}{0.5em}
-\titlespacing{\subsubsection}{1em}{0.25em}{0.5em}
+\titlespacing{\subsection}{0pt}{0.1em}{0.5em}
+\titlespacing{\subsubsection}{1em}{0.1em}{0.5em}
 
 % paragraph space
 \setlength{\parskip}{0.5em}
@@ -127,12 +135,27 @@
 % score command
 \newcommand{\score}[1]{(#1')}
 
+% answer enviroment
+\NewEnviron{answer}{
+  \ifshowans
+    \par
+    \textcolor{red}{
+      \BODY
+    }
+    \par
+  \else
+    \par\noindent
+    \rule{0pt}{0.5em}
+    \par
+  \fi
+}
+
 \begin{document}
 
 % title
 \begin{center}
-  \zihao{4} \school 试卷（\underline{\papertype} 卷）\\
-  \zihao{5} （\underline{\ \startyear\ } 至 \underline{\ \nextyear\ } 学年 第 \underline{\ \semester\ } 学期） \\
+  \zihao{3} \school 试卷（\underline{\papertype} 卷）\\
+  \zihao{4} （\underline{\ \startyear\ } 至 \underline{\ \nextyear\ } 学年 第 \underline{\ \semester\ } 学期） \\
   \vspace{0.5cm}
   \zihao{5}
   \begin{tabularx}{0.9 \textwidth}{XXX}
@@ -144,6 +167,7 @@
 
 % commitment
 \afterpage{
+  \color{black}
   \noindent
   \begin{minipage}{0.22 \textwidth}
     \zihao{5}
@@ -190,11 +214,20 @@
 
 TLB 的作用是什么？如果使用单级页表还需要 TLB 吗？\score{4}
 
+\begin{answer}
+  TLB 其核心作用是​​加速虚拟地址到物理地址的转换过程。 \score{2}
+
+  即使使用单级页表， TLB 仍然是至关重要且必要的。 \score{2}
+\end{answer}
+
 \subsubsection{}
 
 当操作系统选择 4KB 作为最小页大小时， L2 页表项和 L1 页表项对应大页的页面大小分别为 2MB 和 1GB。
 那么当操作系统选择 16KB 或 64KB 作为最小页大小时，对应大页（只考虑 L2 页表项）的页面大小是多少？请写出计算过程。\score{4}
 
+\begin{answer}
+  \lipsum[3]
+\end{answer}
 
 \subsection{}
 
@@ -204,10 +237,17 @@ TLB 的作用是什么？如果使用单级页表还需要 TLB 吗？\score{4}
 
 假设伙伴系统初始只有一块 64KB 大小的内存块，保存在空闲链表 4 当中。依次分配 30KB、9KB、4KB 三次内存后，请问空闲链表 0~3 各剩几个空闲块？\score{4}
 
+\begin{answer}
+  \lipsum[3]
+\end{answer}
+
 \subsubsection{}
 
 伙伴系统会存在内部碎片的问题，请说明内部碎片是什么，并计算第一问中存在多大的内部碎片。\score{4}
 
+\begin{answer}
+  \lipsum[3]
+\end{answer}
 
 \subsection{}
 
@@ -218,13 +258,25 @@ TLB 的作用是什么？如果使用单级页表还需要 TLB 吗？\score{4}
 
 请根据你所学的虚拟内存管理的知识，简要说明内存去重的基本原理。\score{4}
 
+\begin{answer}
+  \lipsum[3]
+\end{answer}
+
 \subsubsection{}
 
 在该厂商使用了内存去重技术后，部分用户反馈云服务的质量下降，请求的平均延迟增加，请推测可能的原因是什么？\score{4}
 
+\begin{answer}
+  \lipsum[3]
+\end{answer}
+
 \subsubsection{}
 
 部分用户认为内存去重技术可能危害自己的数据安全，请推测原因。\score{4}
+
+\begin{answer}
+  \lipsum[3]
+\end{answer}
 
 \subsection{}
 
@@ -235,10 +287,17 @@ TLB 的作用是什么？如果使用单级页表还需要 TLB 吗？\score{4}
 
 请解释为什么在这种情况下会出现CPU利用率低和缓存命中率低的现象。\score{3}
 
+\begin{answer}
+  \lipsum[3]
+\end{answer}
+
 \subsubsection{}
 
 请提出至少两种解决方案解决该问题。\score{3}
 
+\begin{answer}
+  \lipsum[3]
+\end{answer}
 
 \section{系统安全 \score{16}}
 
@@ -246,9 +305,17 @@ TLB 的作用是什么？如果使用单级页表还需要 TLB 吗？\score{4}
 
 如果允许且只允许你修改一台正在运行中的计算机内存中的任意一个 bit ，你该如何获取到最高权限？简述不少于 2 种方案。\score{4}
 
+\begin{answer}
+  \lipsum[3]
+\end{answer}
+
 \subsection{}
 
 从安全的角度分析，为什么对文件操作不使用 inode 号作为参数而要用 fd 作为参数？不少于 2 种原因。\score{4}
+
+\begin{answer}
+  \lipsum[3]
+\end{answer}
 
 \subsection{}
 
@@ -261,10 +328,18 @@ Recall 是结合了 Copilot 学习、理解、推理能力应运而生的「回�
 过去潜在的黑客大费周章却只能针对单一应用攻击，但现在他们或许有机会一次性从你的电脑中获得最近一小时甚至一个月的操作记录，如何避免这样的事情发生？
 不少于 3 点（可从系统安全保护层次、文件安全性隔离性保护、应用隔离等方面回答）。\score{4}
 
+\begin{answer}
+  \lipsum[3]
+\end{answer}
+
 \subsubsection{}
 
 Recall 在拍摄快照时，并不会隐藏密码或重要帐号等信息，它甚至已经记录下你的所有隐私操作。
 请你选择课程中介绍的访问控制策略，设计一个允许用户控制的 Recall 启用方案，允许用户决定操作是否允许被 Recall 记录，并确保记录下的数据被安全使用。\score{4}
+
+\begin{answer}
+  \lipsum[3]
+\end{answer}
 
 \section{系统虚拟化 \score{28}}
 
@@ -276,9 +351,17 @@ DMA 允许外设直接访问内存，无需通过 CPU 进行数据传输，提�
 
 请简述 IOMMU 是如何解决这个问题的。\score{4}
 
+\begin{answer}
+  \lipsum[3]
+\end{answer}
+
 \subsubsection{}
 
 在生产实践中， IOMMU 往往会配置 2MB 或更大的页，请问有什么好处？\score{4}
+
+\begin{answer}
+  \lipsum[3]
+\end{answer}
 
 \subsection{}
 
@@ -288,9 +371,17 @@ DMA 允许外设直接访问内存，无需通过 CPU 进行数据传输，提�
 
 PID namespace 是否能抵御 fork bomb 对容器的攻击，为什么？\score{4}
 
+\begin{answer}
+  \lipsum[3]
+\end{answer}
+
 \subsubsection{}
 
 在虚拟机中运行的 fork bomb 会对宿主机造成什么样的影响，为什么？\score{4}
+
+\begin{answer}
+  \lipsum[3]
+\end{answer}
 
 \subsection{}
 
@@ -300,19 +391,33 @@ PID namespace 是否能抵御 fork bomb 对容器的攻击，为什么？\score{
 
 如果 hypervisor 想让多个虚拟机以 CoW 的形式共享同一块物理内存，应该将哪一阶段页表对应的 PTE 的 read only bit 设置为 1 ？ \score{3}
 
+\begin{answer}
+  \lipsum[3]
+\end{answer}
 
 \subsubsection{}
 
 当虚拟机的某个进程试图写入被 hypervisor 映射为 CoW 的内存时，请描述从尝试写入到完成写入的过程。\score{3}
 
+\begin{answer}
+  \lipsum[3]
+\end{answer}
+
 \subsection{}
 
 ChCore Lab 使用 \verb|qemu-system-aarch64| 在助教提供的 x86-64 的 Linux 虚拟机上模拟树莓派 3 的执行环境。请问这里的 \verb|qemu-system-aarch64| 更可能使用二进制翻译，半虚拟化和硬件虚拟化的哪一种方法进行计算虚拟化？说明判断理由。\score{3}
+
+\begin{answer}
+  \lipsum[3]
+\end{answer}
 
 \subsection{}
 
 在二阶段页表翻译过程中，如果第一阶段用 4KB 页表（ 4 级），第二阶段用 2MB 页表（ 3 级），在 TLB miss 的情况下，将 \verb|GVA| 翻译为 \verb|HPA| 最多需要几次访存？说明计算过程。\score{3}
 
+\begin{answer}
+  \lipsum[3]
+\end{answer}
 
 \section{同步原语 \score{20}}
 
@@ -379,14 +484,26 @@ void barrier_wait(barrier_t *b) {
 
 这个 barrier 存在一处 bug 。请指出一个执行序列，会出现不止 \verb|max_waiting| 个线程从 barrier 恢复执行。\score{3}
 
+\begin{answer}
+  \lipsum[3]
+\end{answer}
+
 \subsubsection{}
 
 请说明如何修复这个问题。\score{2}
+
+\begin{answer}
+  \lipsum[3]
+\end{answer}
 
 \subsubsection{}
 
 \verb|pthread_cond_broadcast| 会唤醒所有正在等待的线程，而从 \verb|pthread_cond_wait| 醒来的线程都需要持有 \verb|b->m| , 这使得这个 barrier 实现在 NUMA 环境下性能很差。
 请提出一种方案缓解这个问题。\score{3}
+
+\begin{answer}
+  \lipsum[3]
+\end{answer}
 
 \subsection{}
 
@@ -413,9 +530,17 @@ void unlock(int *lock) {
 
 请说明排号锁是如何保证互斥访问的？\score{3}
 
+\begin{answer}
+  \lipsum[3]
+\end{answer}
+
 \subsubsection{}
 
 请说明为什么排号锁的可扩展性比 MCS 锁更差。\score{3}
+
+\begin{answer}
+  \lipsum[3]
+\end{answer}
 
 \subsubsection{}
 
@@ -482,6 +607,10 @@ void mutex_unlock(lock_t *lock) { lock->locked = 0; }
   \small\verb|mutex_unlock     U		while (lock->locked) 				 Before/After-W2|
   \item 你可以用链表来描述初始状态/当前状态，也可以用一个执行序列描述多个违反条件的情况，也可以用三元组 \verb|(A, B, 0)| 表示锁 \verb|(queue_tail, last_owner, lock)| 的状态。请保证你使用的符号和简写是易读的。
 \end{itemize}
+
+\begin{answer}
+  \lipsum[3]
+\end{answer}
 
 \label{LastPage}
 \end{document}

@@ -6,10 +6,16 @@ section_pattern = re.compile(
 
 score_pattern = re.compile(r'\\score\{([^}]*)\}')
 
+answer_pattern = re.compile(r'\\begin\{answer\}.*?\\end\{answer\}', re.DOTALL)
+
 results = []
 
 with open('main.tex', 'r', encoding='utf-8') as f:
-    lines = f.readlines()
+    content = f.read()
+
+content_without_answers = answer_pattern.sub('', content)
+
+lines = content_without_answers.splitlines(True)
 
 for line_no, line in enumerate(lines, start=0):
     matches = section_pattern.finditer(line)
