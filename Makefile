@@ -6,7 +6,7 @@ bachelor:
 
 clean:
 	find . -name '*.aux' -print0 | xargs -0 rm -rf
-	rm -rf *.lof *.log *.lot *.out *.toc *.bbl *.blg *.thm  auto/ *.synctex.gz
+	rm -rf *.lof *.log *.lot *.out *.toc *.bbl *.blg *.thm  auto/ *.synctex.gz *.listing *.synctex\(busy\)
 
 depclean: clean
 	rm -rf *.pdf

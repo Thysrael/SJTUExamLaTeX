@@ -14,6 +14,7 @@
 \usepackage{titlesec} % custom title format
 \usepackage{indentfirst} % custom section ident
 \usepackage{enumitem} % custom item
+\usepackage{listings} % source code
 % \usepackage{pgffor} % for-loop
 % \usepackage{totcount} % counter
 
@@ -85,7 +86,7 @@
   {}
 
 % subsubsection indent
-\titlespacing{\subsubsection}{2em}{1em}{0pt}
+\titlespacing{\subsubsection}{1em}{1em}{0pt}
 
 
 % paragraph space
@@ -93,10 +94,10 @@
 
 % custom list
 \setlist[itemize]{
-    itemsep=0em,
-    parsep=0.5em,
+    itemsep=0.25em,
+    parsep=0em,
     topsep=0.5em,
-    partopsep=0em
+    partopsep=0.5em
 }
 
 \setlist[enumerate]{
@@ -104,6 +105,21 @@
     parsep=0.5em,
     topsep=0.5em,
     partopsep=0em
+}
+
+% source code
+\lstset{
+	basicstyle=\small\ttfamily,,
+  numbers=left,
+  breaklines=true,
+  extendedchars=true,
+  frame=single,
+  framesep=1pt,
+  float,
+  linewidth=0.8\linewidth,
+  framexleftmargin=0.5em,
+  framexrightmargin=0.5em,
+  lineskip=0.1em
 }
 
 \begin{document}
@@ -157,7 +173,6 @@
 %   \i
 % \fi
 % }
-% TODO: 标题样式
 % TODO: 分数计算
 % TODO: 代码块和图片样式
 % TODO: 答案编辑
@@ -215,6 +230,74 @@ Recall 是结合了 Copilot 学习、理解、推理能力应运而生的「回�
 
 Recall 在拍摄快照时，并不会隐藏密码或重要帐号等信息，它甚至已经记录下你的所有隐私操作。
 请你选择课程中介绍的访问控制策略，设计一个允许用户控制的 Recall 启用方案，允许用户决定操作是否允许被 Recall 记录，并确保记录下的数据被安全使用。(4')
+
+\section{同步原语 (20')}
+
+\subsection{}
+
+Barrier 用于协调多个线程，使它们在执行到某个特定点时等待，直到恰好 K 个线程都到达该点后再继续执行，其中 K 是 barrier 初始化时设定的值。
+下面展示了一个 barrier 的实现：
+
+\begin{table}[htb]
+  \centering
+  \begin{tabular}{c}
+    \begin{lstlisting}
+typedef struct barrier {
+  unsigned max_waiting;
+  unsigned waiting;
+  pthread_mutex_t m;
+  pthread_cond_t cv;
+} barrier_t;
+
+void barrier_destroy(barrier_t *b) {} // omit in exam
+
+void barrier_init(barrier_t *b, unsigned max_waiting_) {
+  pthread_mutex_init(&b->m, NULL);
+  pthread_cond_init(&b->cv, NULL);
+  b->max_waiting = max_waiting_;
+  b->waiting = 0;
+}
+
+void barrier_wait(barrier_t *b) {
+  pthread_mutex_lock(&b->m);
+
+  if (++b->waiting < b->max_waiting) {
+    pthread_cond_wait(&b->cv, &b->m);
+    pthread_mutex_unlock(&b->m);
+  } else {
+    b->waiting = 0;
+    pthread_mutex_unlock(&b->m);
+    pthread_cond_broadcast(&b->cv);
+  }
+}
+    \end{lstlisting}
+  \end{tabular}
+\end{table}
+
+
+
+说明：
+
+\begin{itemize}
+  \item Pthread 库中的函数都实现正确，并且不会返回错误
+  \item 不需要考虑指令重排，内存乱序问题
+  \item 当描述执行序列时，需要描述具体的行号或者用 U(Unlock), L(Lock), W(Cond Wait), \\
+        B(Broadcast) 等简写清晰描述
+\end{itemize}
+
+
+\subsubsection{}
+
+这个 barrier 存在一处 bug 。请指出一个执行序列，会出现不止 \verb|max_waiting| 个线程从 barrier 恢复执行。(3')
+
+\subsubsection{}
+
+请说明如何修复这个问题。(2')
+
+\subsubsection{}
+
+\verb|pthread_cond_broadcast| 会唤醒所有正在等待的线程，而从 \verb|pthread_cond_wait| 醒来的线程都需要持有 \verb|b->m| , 这使得这个 barrier 实现在 NUMA 环境下性能很差。
+请提出一种方案缓解这个问题。(3')
 
 
 \label{LastPage}
