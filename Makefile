@@ -1,3 +1,5 @@
+.PHONY: check
+
 bachelor:
 	xelatex --synctex=1 main.tex
 	-bibtex  main.aux
@@ -10,3 +12,6 @@ clean:
 
 depclean: clean
 	rm -rf *.pdf
+
+check:
+	@python3 check.py
