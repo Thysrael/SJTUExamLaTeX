@@ -30,9 +30,13 @@
 \setmainfont{Times New Roman}
 \setmonofont{Consolas}
 \setCJKmainfont{SimSun}[AutoFakeBold]
-\setCJKsansfont{SimHei}[AutoFakeBold]
-\setCJKfamilyfont {zhkai} {KaiTi}
+
+% kaishu and heiti
+\setCJKfamilyfont{zhkai}{KaiTi}[AutoFakeBold]
 \NewDocumentCommand \kaishu{}{\CJKfamily{zhkai}}
+\setCJKfamilyfont{zhhei}{SimHei}[AutoFakeBold]
+\NewDocumentCommand \heiti{}{\CJKfamily{zhhei}}
+
 % get current semester
 \newcommand{\currentsemester}{
   \ifnum\month<10
@@ -72,7 +76,7 @@
 % custom section format
 \renewcommand{\thesection}{\chinese{section}}
 \titleformat{\section}
-  {\normalfont\Large\bfseries}
+  {\normalfont\Large\heiti}
   {\thesection、}
   {0pt}
   {}
@@ -179,9 +183,10 @@
   \end{minipage}
   \hfill
   \begin{minipage}{0.73\textwidth}
+    \zihao{5}
     \begin{tblr}{
       colspec = {|X[3,l]|X[c]|X[c]|X[c]|X[c]|X[c]|X[c]|X[c]|X[c]|X[c]|},
-      rows = {ht=10mm},
+      rows = {ht=9mm},
       hlines,
       vlines,
       }
