@@ -30,6 +30,7 @@
 \setmainfont{Times New Roman}
 \setmonofont{Consolas}
 \setCJKmainfont{SimSun}[AutoFakeBold]
+\setCJKsansfont{SimHei}[AutoFakeBold]
 
 % kaishu and heiti
 \setCJKfamilyfont{zhkai}{KaiTi}[AutoFakeBold]
@@ -76,7 +77,7 @@
 % custom section format
 \renewcommand{\thesection}{\chinese{section}}
 \titleformat{\section}
-  {\normalfont\Large\heiti}
+  {\normalfont\Large\bfseries\heiti}
   {\thesection、}
   {0pt}
   {}
@@ -294,7 +295,7 @@ TLB 的作用是什么？如果使用单级页表还需要 TLB 吗？\score{4}
   \lipsum[3]
 \end{answer}
 
-\section{系统安全 \score{16}}
+\section{System Security \score{16}}
 
 \subsection{}
 
